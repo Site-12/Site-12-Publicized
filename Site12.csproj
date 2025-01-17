@@ -1,0 +1,100 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <AssemblyTitle>Site12</AssemblyTitle>
+        <Product>Site12</Product>
+        <TargetFramework>net481</TargetFramework>
+        <LangVersion>12.0</LangVersion>
+        <MapFileExtensions>true</MapFileExtensions>
+        <OutDir>bin\$(Configuration)_$(Platform)\</OutDir>
+
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>embedded</DebugType>
+        <Platforms>x64</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="ExMod.Exiled" Version="9.4.0" />
+        <PackageReference Include="Mono.HttpUtility" Version="1.0.0.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="BigHelp.Http" Version="0.3.2" />
+        <PackageReference Include="Lib.Harmony" Version="2.3.3" />
+        <PackageReference Include="ByteSize" Version="2.1.2" />
+        
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net481" Version="1.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        
+        <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Reference Include="MapEditorReborn" HintPath="Plugins\MapEditorReborn.dll" Private="False" />
+        <Reference Include="Mirror" HintPath="Plugin\Mirror-Publicized.dll" Private="False" />
+        <Reference Include="AudioPlayer" HintPath="Plugin\AudioPlayer.dll" Private="False" />
+
+        <Reference Include="Assembly-CSharp" HintPath="$(SL_REFERENCES)\Assembly-CSharp-Publicized.dll" Private="False" />
+        <Reference Include="Assembly-CSharp-firstpass" HintPath="$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll" Private="False" />
+        <Reference Include="Pooling" HintPath="$(SL_REFERENCES)\Pooling.dll" Private="False" />
+        <Reference Include="Unity.TextMeshPro" HintPath="$(SL_REFERENCES)\Unity.TextMeshPro.dll" Private="False" />
+        <Reference Include="UnityEngine" HintPath="$(SL_REFERENCES)\UnityEngine.dll" Private="False" />
+        <Reference Include="UnityEngine.AIModule" HintPath="$(SL_REFERENCES)\UnityEngine.AIModule.dll" Private="False" />
+        <Reference Include="UnityEngine.CoreModule" HintPath="$(SL_REFERENCES)\UnityEngine.CoreModule.dll" Private="False" />
+        <Reference Include="UnityEngine.PhysicsModule" HintPath="$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll" Private="False" />
+        <Reference Include="UnityEngine.AnimationModule" HintPath="$(SL_REFERENCES)\UnityEngine.AnimationModule.dll" Private="False" />
+        <Reference Include="UnityEngine.TerrainModule" HintPath="$(SL_REFERENCES)\UnityEngine.TerrainModule.dll" Private="False" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EditorConfigFiles Remove=".editorconfig" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\Schematics\Cosmetics\ArmBand.json" />
+      <None Remove="Resources\Schematics\Cosmetics\Aviators.json" />
+      <None Remove="Resources\Schematics\Cosmetics\Beret.json" />
+      <None Remove="Resources\Schematics\Cosmetics\BeretV2.json" />
+      <None Remove="Resources\Schematics\Cosmetics\ChefHat.json" />
+      <None Remove="Resources\Schematics\Cosmetics\Cigarette.json" />
+      <None Remove="Resources\Schematics\Cosmetics\GoldChain.json" />
+      <None Remove="Resources\Schematics\Cosmetics\HardHatGray.json" />
+      <None Remove="Resources\Schematics\Cosmetics\HardHatGreen.json" />
+      <None Remove="Resources\Schematics\Cosmetics\HardHatPink.json" />
+      <None Remove="Resources\Schematics\Cosmetics\MedicalMask.json" />
+      <None Remove="Resources\Schematics\Cosmetics\SecGlasses.json" />
+      <None Remove="Resources\Schematics\Cosmetics\SecHelmet.json" />
+      <None Remove="Resources\Schematics\Cosmetics\SecHelmetRiot.json" />
+      <None Remove="Resources\Schematics\Cosmetics\SurgicalCap.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\PlayingCards.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\PropCoffeeMug.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\PropMedicalStrecher.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\propsflare.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\propsfoodtray.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\propsprc.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\propsprc-Rigidbodies.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\propsstepladder.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\PropWaterSpill.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\Radio.json" />
+      <None Remove="Resources\Schematics\Other\PG7VL.json" />
+      <None Remove="Resources\Schematics\Chaos\Cosmetics\RadioPack.json" />
+      <None Remove="Resources\Schematics\Chaos\Cosmetics\TechBelt.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\Briefcase.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\Briefcase-Pickups.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\Briefcase-Rigidbodies.json" />
+      <None Remove="Resources\Schematics\Lobby\RolePickingBridge.json" />
+      <None Remove="Resources\Schematics\Lobby\RolePickingBridge-Rigidbodies.json" />
+      <None Remove="Resources\Schematics\Lobby\Role_Turtle.json" />
+      <None Remove="Resources\Schematics\Lobby\RolePickingBridgeH.json" />
+      <None Remove="Resources\Schematics\Lobby\RolePickingBridgeH-Rigidbodies.json" />
+      <None Remove="Resources\Schematics\Patreon\Props\HalfBriefcase" />
+      <None Remove="Resources\Schematics\Cosmetics\HardHatBlue.json" />
+      <None Remove="Resources\Schematics\Cosmetics\HardHatWhite.json" />
+      <None Remove="Resources\Schematics\Cosmetics\HardHatYellow.json" />
+      <None Remove="Resources\Schematics\Cosmetics\VestBlack1.json" />
+      <None Remove="Resources\Schematics\Cosmetics\VestBlack2.json" />
+      <None Remove="Resources\Schematics\Cosmetics\VestGreen1.json" />
+      <None Remove="Resources\Schematics\Cosmetics\VestGreen2.json" />
+    </ItemGroup>
+</Project>
