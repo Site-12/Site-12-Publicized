@@ -1,4 +1,4 @@
-# Site-12 Publicized
+# Site-12 Publicized - Incomplete come back when it's finished
 
 Attribution Requirements for server owners/developers using our code or our pre-built plugin:
 - You are required to put our attribution name "Site-12 Development Team" in your **server info**
