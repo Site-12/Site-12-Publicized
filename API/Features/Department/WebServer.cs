@@ -583,15 +583,9 @@ public class WebServer
     }
 
     #endregion
+
+    private readonly string _webhookUrl = Plugin.Singleton.Config.URL;
     
-    const string webhookUrl = "https://canary.discord.com/api/webhooks/1315558307364081705/up0mAq3PUOf2NckBJRGbyC5lpE7PpWGPB5dnPW_SVDRzfXv2qnqf9ejhfIhcyM02THza";
-
-    public static string GetDiscordTimestamp(DateTime dateTime, string format = "R")
-    {
-        var unixTimestamp = ((DateTimeOffset)dateTime).ToUnixTimeSeconds();
-        return $"<t:{unixTimestamp}:{format}>";
-    }
-
     public void LogUserAction(string username, string department, string action, string obfuscatedPassword)
     {
         var embed = new
@@ -615,7 +609,7 @@ public class WebServer
             },
         };
 
-        PostWebhook(webhookUrl, embed);
+        PostWebhook(_webhookUrl, embed);
     }
 
     private void PostWebhook(string url, object payload)

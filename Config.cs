@@ -27,4 +27,7 @@ public class Config : IConfig
 
     [Description("Scom Word Blacklist")] 
     public List<string> BlackList { get; set; } = [];
+
+    [Description("Discord Webhook link for Department Logs")]
+    public string URL { get; set; } = "Example URL";
 }
