@@ -31,7 +31,8 @@ public class ScomPlayer : MonoBehaviour
         PlayerData = DataPlayer.GetPlayer(Player.UserId);
         if (!Player.DoNotTrack) PlayerData = DataPlayer.AddPlayer(Player.UserId, Player.Nickname);
 
-        new WeightSystem().Init(Player);
+        if(Plugin.Singleton.Config.WeightSystem)
+            new WeightSystem().Init(Player);
 
         //Create an AudioPlayer for the player.
         AudioPlayer = AudioPlayer.Create($"Player {Player.Nickname}", controllerId: SpeakerExtensions.GetFreeId());

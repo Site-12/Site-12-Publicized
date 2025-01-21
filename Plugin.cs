@@ -23,12 +23,6 @@ using Server = Exiled.API.Features.Server;
 /// </summary>
 public sealed class Plugin : Plugin<Config>
 {
-    static Plugin()
-    {
-        Harmony = new Harmony("com.site12.main");
-        Harmony.PatchAll();
-    }
-
     public override string Name => "Site12";
     public override string Author => "Site-12 Development Team";
     public override Version Version => new(3, 0, 4); // Pre-Release 4 (Final version you can receive)
@@ -40,6 +34,15 @@ public sealed class Plugin : Plugin<Config>
     public override void OnEnabled()
     {
         base.OnEnabled();
+        
+        if (!Config.ConfigurationComplete)
+        {
+            Log.Error("Site-12 was not configured properly...");
+            return;
+        }
+        
+        Harmony = new Harmony("com.site12.main");
+        Harmony.PatchAll();
 
         if (_wasEverEnabled)
             return;
@@ -89,7 +92,6 @@ public sealed class Plugin : Plugin<Config>
             resultObj.transform.parent = ev.Schematic.transform;
         }
     }
-
 
     /// <summary>
     /// Lists all resource names within this assembly to the server console.

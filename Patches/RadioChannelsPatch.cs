@@ -36,16 +36,7 @@ public static class RadioChannelsPatch
             ]
         };
 
-        RadioChannels =
-        [
-            "Public",
-            "Research",
-            "Security",
-            "Medical",
-            "Maintenance/Janitorial",
-            "Command",
-            "Administrative"
-        ];
+        RadioChannels = Plugin.Singleton.Config.RadioChannels.ToArray();
     }
 
     public static readonly Dictionary<ReferenceHub, int> PlayerRadioChannel;

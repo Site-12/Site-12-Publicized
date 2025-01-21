@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Config : IConfig
 {
+    [Description("Set to true to enable the plugin once you setup all the configurations")]
+    public bool ConfigurationComplete { get; set; } = false;
     [Description("Whether or not the plugin is enabled.")]
     public bool IsEnabled { get; set; } = true;
 
@@ -23,10 +25,19 @@ public class Config : IConfig
     public Vector3 PlayerSpawnLocation = new(0, 0, 0);
     
     [Description("List of Departments that exist")]
-    public List<string> Departments { get; set; } = [];
+    public List<string> Departments { get; set; } = [
+    "Security",
+    "Research"
+    ];
+
+    [Description("Radio Channels")] 
+    public List<string> RadioChannels { get; set; } = [""];
 
     [Description("Scom Word Blacklist")] 
     public List<string> BlackList { get; set; } = [];
+
+    [Description("Whether or not the WeightSystem should be enabled/disabled or not.")] 
+    public bool WeightSystem { get; set; } = false;
 
     [Description("Discord Webhook link for Department Logs")]
     public string URL { get; set; } = "Example URL";
