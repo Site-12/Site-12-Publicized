@@ -24,6 +24,7 @@ using Other;
 using PlayerRoles;
 using UnityEngine;
 using Broadcast = Broadcast;
+using Random = System.Random;
 using Round = PluginAPI.Core.Round;
 using TeslaGate = Other.TeslaGate;
 
@@ -35,7 +36,7 @@ public abstract class Lobby
     public static SchematicObject Schematic;
 
     public static string SpawnPosition = Plugin.Singleton.Config.LobbySpawnLocation;
-    public static string Site = "12";
+    public static string Site = "";
 
     [OnPluginEnabled]
     public static void InitEvents()
@@ -97,6 +98,7 @@ public class UseLobbyCommand : ICommand
 
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
+        Lobby.Site = new Random().Next(10, 99).ToString();
         var exUser = ExPlayer.Get(sender);
         response = "<color=red>No Permission.";
         if (!sender.CheckPermission("scombat.lobby"))
@@ -336,7 +338,7 @@ public class SetSite : ICommand
             return false;
 
         response = "<color=red>You require one or more arguments...";
-        if (arguments.Count == 1)
+        if (arguments.Count == 0)
             return false;
 
         Lobby.Site = arguments.At(0);
