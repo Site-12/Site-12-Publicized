@@ -319,15 +319,15 @@ public sealed class KeycardHandler : CustomItemHandler
             return door.KeycardPermissions switch
             {
                 KeycardPermissions.Intercom => HasValidCard(4),
-                KeycardPermissions.ArmoryLevelOne => HasValidCard(3, Levels.Security),
+                KeycardPermissions.ArmoryLevelOne => HasValidCard(2, Levels.Security),
                 KeycardPermissions.ArmoryLevelTwo => HasValidCard(3, Levels.Security),
                 KeycardPermissions.ArmoryLevelThree => HasValidCard(3, Levels.Engineering),
 
                 KeycardPermissions.Checkpoints => HasValidCard(1, Levels.Security),
 
-                // KeycardPermissions.ContainmentLevelOne => expr,
-                KeycardPermissions.ContainmentLevelTwo => HasValidCard(3, Levels.Security),
-                // KeycardPermissions.ContainmentLevelThree => expr,
+                KeycardPermissions.ContainmentLevelOne => HasValidCard(2, Levels.Containment),
+                KeycardPermissions.ContainmentLevelTwo => HasValidCard(3, Levels.Containment),
+                KeycardPermissions.ContainmentLevelThree => HasValidCard(4, Levels.Containment),
 
                 // KeycardPermissions.ExitGates => expr,
                 // KeycardPermissions.AlphaWarhead => expr,

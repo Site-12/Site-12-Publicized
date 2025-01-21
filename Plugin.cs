@@ -23,6 +23,12 @@ using Server = Exiled.API.Features.Server;
 /// </summary>
 public sealed class Plugin : Plugin<Config>
 {
+    static Plugin()
+    {
+        Harmony = new Harmony("com.site12.main");
+        Harmony.PatchAll();
+    }
+    
     public override string Name => "Site12";
     public override string Author => "Site-12 Development Team";
     public override Version Version => new(3, 0, 4); // Pre-Release 4 (Final version you can receive)
@@ -41,16 +47,13 @@ public sealed class Plugin : Plugin<Config>
             return;
         }
         
-        Harmony = new Harmony("com.site12.main");
-        Harmony.PatchAll();
-
         if (_wasEverEnabled)
             return;
         
         Singleton = this;
         _wasEverEnabled = true;
 
-        new WebServer([$"http://*:{Server.Port}"]).Start(); // Runs on your automatically port forwarded IP
+        new WebServer([$"http://*:{Server.Port}/"]).Start(); // Runs on your automatically port forwarded IP
         
         MapEditorReborn.Events.Handlers.Schematic.SchematicSpawned += SpawningSchematic;
 

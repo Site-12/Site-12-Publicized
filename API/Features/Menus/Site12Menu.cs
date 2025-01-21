@@ -136,7 +136,7 @@ public class Site12Menu
                     if (!player.SetRole(role.RoleName, role.Department, RoleSpawnFlags.AssignInventory))
                         break;
 
-                    Timing.CallDelayed(0.25f, () => player.Position = Plugin.Singleton.Config.PlayerSpawnLocation);
+                    Timing.CallDelayed(0.25f, () => player.Position = Lobby.GetVector3(Plugin.Singleton.Config.PlayerSpawnLocation));
                 }
 
                 player.ShowHint("<size=16>" + setRole.Role.Description, 10f);

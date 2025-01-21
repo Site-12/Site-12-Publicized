@@ -30,7 +30,7 @@ public class WebServer
 
         if (!File.Exists(Path.Combine(Paths.Plugins, "Site12", "Users.json")))
         {
-            users.SavedUsers = [new User ("ExampleUser", "ExamplePassword", "ExampleDepartment")];
+            users.SavedUsers = [new User ("ExampleUser", "ExamplePassword", "Other", true)];
             File.WriteAllText(Path.Combine(Paths.Plugins, "Site12", "Users.json"), JsonConvert.SerializeObject(users, Formatting.Indented));
         }
     }
@@ -77,6 +77,9 @@ public class WebServer
                 break;
             case "/roster" when request.HttpMethod == "GET":
                 GetRoster(request, response);
+                break;
+            case "/shop/roles-and-ranks" when request.HttpMethod == "GET":
+                GetRolesAndRanks(request, response);
                 break;
             case "/department/removeRole" when request.HttpMethod == "POST":
                 RemoveRole(request, response);
@@ -153,7 +156,7 @@ public class WebServer
 
                 var bypass = new
                 {
-                    isBypass = user.Password.Replace(user.Department, "") == "X23afe",
+                    isBypass = user.IsBypass,
                 };
 
                 var responseString = JsonConvert.SerializeObject(bypass, Formatting.Indented);
@@ -173,7 +176,38 @@ public class WebServer
                 break;
         }
     }
+    
+    private void GetRolesAndRanks(HttpListenerRequest request, HttpListenerResponse response)
+    {
+        if (!IsAuthorized(request))
+        {
+            response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            response.Close();
+            return;
+        }
 
+        var sessionId = request.Cookies["sessionId"].Value;
+        var user = _sessions[sessionId];
+
+        var roles = Department.DepartmentsData[user.Department].Roles.Select(role => new
+        {
+            role.RoleName,
+            Ranks = role.Role.Ranks.Select(rank => new
+            {
+                RankName = rank.Key, rank.Value.RankWeight
+            }).ToList()
+        }).ToList();
+
+        var responseString = JsonConvert.SerializeObject(roles, Formatting.Indented);
+        var buffer = Encoding.UTF8.GetBytes(responseString);
+
+        response.ContentLength64 = buffer.Length;
+        response.OutputStream.Write(buffer, 0, buffer.Length);
+        response.OutputStream.Close();
+
+        LogUserAction(user.Username, user.Department, "Roles and ranks was requested.", user.Password);
+    }
+    
     #region Handlers
 
     private void HandleLogin(HttpListenerRequest request, HttpListenerResponse response)
@@ -638,11 +672,12 @@ public class WebServer
         public List<User> SavedUsers = [];
     }
 
-    public class User(string username, string password, string department, bool viewerOnly = false)
+    public class User(string username, string password, string department, bool isBypass, bool viewerOnly = false)
     {
         public string Username { get; set; } = username;
         public string Password { get; set; } = password;
         public string Department { get; set; } = department;
+        public bool IsBypass { get; set; } = isBypass;
         public bool ViewerOnly { get; set; } = viewerOnly;
     }
 
