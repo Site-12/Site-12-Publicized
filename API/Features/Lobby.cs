@@ -99,7 +99,8 @@ public class UseLobbyCommand : ICommand
 
         exUser.Broadcast(5, "REMEMBER TO USE \"BEGINROLEPLAY\"", Broadcast.BroadcastFlags.AdminChat);
         
-        Lobby.Schematic = ObjectSpawner.SpawnSchematic(new SchematicSerializable(Plugin.Singleton.Config.LobbySchematic));
+        if(!Plugin.Singleton.Config.LobbySchematic.IsEmpty())
+            Lobby.Schematic = ObjectSpawner.SpawnSchematic(new SchematicSerializable(Plugin.Singleton.Config.LobbySchematic));
 
         Round.Start();
         Round.IsLocked = true;
@@ -145,7 +146,8 @@ public class ReuseLobbyCommand : ICommand
         if (Lobby.IsLobby)
             return false;
 
-        Lobby.Schematic = ObjectSpawner.SpawnSchematic(new SchematicSerializable(Plugin.Singleton.Config.LobbySchematic));
+        if(!Plugin.Singleton.Config.LobbySchematic.IsEmpty())
+            Lobby.Schematic = ObjectSpawner.SpawnSchematic(new SchematicSerializable(Plugin.Singleton.Config.LobbySchematic));
 
         Lobby.IsLobby = true;
 
@@ -178,7 +180,8 @@ public class StopLobbyCommand : ICommand
         if (!Lobby.IsLobby)
             return false;
 
-        Lobby.Schematic.Destroy();
+        if(Lobby.Schematic != null)
+            Lobby.Schematic.Destroy();
 
         Lobby.IsLobby = false;
 
