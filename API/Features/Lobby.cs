@@ -35,7 +35,7 @@ public abstract class Lobby
     public static bool HasRoleplayStarted;
     public static SchematicObject Schematic;
 
-    public static string SpawnPosition = Plugin.Singleton.Config.LobbySpawnLocation;
+    public static Vector3 SpawnPosition = Plugin.Singleton.Config.LobbySpawnLocation;
     public static string Site = "";
 
     [OnPluginEnabled]
@@ -71,21 +71,10 @@ public abstract class Lobby
     public static void Action(ExPlayer player)
     {
         if (!IsLobby) return;
-
-        var pos = GetVector3(SpawnPosition);
         
         player.Role.Set(RoleTypeId.Tutorial, SpawnReason.None, RoleSpawnFlags.All);
-        Timing.CallDelayed(Timing.WaitForOneFrame, () => player.Position = pos);
+        Timing.CallDelayed(Timing.WaitForOneFrame, () => player.Position = SpawnPosition);
         Timing.CallDelayed(0.2f, () => player.ShowHint("<b>Welcome to the lobby!</b>\n<b>Pick a role in the Server-Specific tab in your Settings!</b>",10f));
-    }
-    
-    public static Vector3 GetVector3(string rString){
-        var temp = rString.Substring(1,rString.Length-2).Split(',');
-        var x = float.Parse(temp[0]);
-        var y = float.Parse(temp[1]);
-        var z = float.Parse(temp[2]);
-        var rValue = new Vector3(x,y,z);
-        return rValue;
     }
 }
 
