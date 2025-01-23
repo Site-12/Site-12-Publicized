@@ -180,7 +180,7 @@ public class StopLobbyCommand : ICommand
         if (!Lobby.IsLobby)
             return false;
 
-        if(Lobby.Schematic != null)
+        if(Lobby.Schematic)
             Lobby.Schematic.Destroy();
 
         Lobby.IsLobby = false;
