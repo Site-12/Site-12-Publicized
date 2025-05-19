@@ -33,7 +33,7 @@ public class Audio : ICommand
 
         if (!Directory.Exists(Path.Combine(Paths.Plugins, "audio")))
             Directory.CreateDirectory(Path.Combine(Paths.Plugins, "audio"));
-        
+
         if (arguments.Count == 0)
         {
             foreach (var file in Directory.GetFiles(Path.Combine(Paths.Plugins, "audio"), "*.ogg", SearchOption.AllDirectories)) sender.Respond($"<color=green>> {file.Replace(".ogg", "").Replace(Path.Combine(Paths.Plugins, "audio") + "/", "")}");

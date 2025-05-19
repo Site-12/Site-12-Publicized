@@ -176,7 +176,7 @@ public class WebServer
                 break;
         }
     }
-    
+
     private void GetRolesAndRanks(HttpListenerRequest request, HttpListenerResponse response)
     {
         if (!IsAuthorized(request))
@@ -207,7 +207,7 @@ public class WebServer
 
         LogUserAction(user.Username, user.Department, "Roles and ranks was requested.", user.Password);
     }
-    
+
     #region Handlers
 
     private void HandleLogin(HttpListenerRequest request, HttpListenerResponse response)
@@ -619,7 +619,7 @@ public class WebServer
     #endregion
 
     private readonly string _webhookUrl = Plugin.Singleton.Config.URL;
-    
+
     public void LogUserAction(string username, string department, string action, string obfuscatedPassword)
     {
         var embed = new

@@ -14,7 +14,7 @@ public class WeightSystem
         public ItemType ItemType = itemType;
         public int Weight = weight;
     }
-    
+
     public List<ItemWeight> ItemWeights = [
         new(ItemType.KeycardJanitor, 0),
         new(ItemType.KeycardScientist, 0),

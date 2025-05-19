@@ -51,7 +51,7 @@ public class ScomPlayer : MonoBehaviour
     {
         if (Round.IsEnded)
             yield break;
-        
+
         var savedRole = CurrentRole.RoleEntry;
         var savedRank = CurrentRole.Rank;
         while (savedRole.RoleName == CurrentRole.RoleEntry.RoleName && !Round.IsEnded)
@@ -62,14 +62,14 @@ public class ScomPlayer : MonoBehaviour
 
         var playerEarned = ElapsedTimeAsRole / 3;
         var data = Dept.DepartmentsData[Dept.GetDepartmentByRole(savedRole)];
-        
+
         Log.Info($"Department Cash Before {data.Balance}");
-        
+
         data.Balance += float.Parse($"{playerEarned:N0}");
         data.Balance -= savedRank.AmountPaidPerRP;
-        
+
         Dept.UpdateDepartment(data.Department, data);
-        
+
         Log.Info($"Department Cash After {data.Balance}");
 
         if (!Player.DoNotTrack)

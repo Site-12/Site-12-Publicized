@@ -184,7 +184,7 @@ public class Site12Menu
     public class SettingsPage
     {
         public readonly string Name;
-        
+
         public ServerSpecificSettingBase[] OwnEntries;
 
         public ServerSpecificSettingBase[] CombinedEntries { get; private set; }

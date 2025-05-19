@@ -7,14 +7,10 @@ using API.Attributes;
 using API.Features.Department;
 using API.Features.Menus;
 using Exiled.API.Enums;
-using Exiled.API.Extensions;
 using Exiled.API.Features;
-using Exiled.API.Features.Doors;
 using HarmonyLib;
-using MapEditorReborn.Events.EventArgs;
-using MEC;
+using ProjectMER.Events.Arguments;
 using UnityEngine;
-using UnityEngine.AI;
 using Log = Exiled.API.Features.Log;
 using Server = Exiled.API.Features.Server;
 
@@ -28,7 +24,7 @@ public sealed class Plugin : Plugin<Config>
         Harmony = new Harmony("com.site12.main");
         Harmony.PatchAll();
     }
-    
+
     public override string Name => "Site12";
     public override string Author => "Site-12 Development Team";
     public override Version Version => new(3, 0, 4); // Pre-Release 4 (Final version you can receive)
@@ -36,29 +32,29 @@ public sealed class Plugin : Plugin<Config>
     public static Plugin Singleton;
     public static Harmony Harmony;
     private bool _wasEverEnabled;
-    
+
     public override void OnEnabled()
     {
         base.OnEnabled();
-        
+
         if (!Config.ConfigurationComplete)
         {
             Log.Error("Site-12 was not configured properly...");
             return;
         }
-        
+
         if (_wasEverEnabled)
             return;
-        
+
         Singleton = this;
         _wasEverEnabled = true;
 
         new WebServer([$"http://*:{Server.Port}/"]).Start(); // Runs on your automatically port forwarded IP
-        
-        MapEditorReborn.Events.Handlers.Schematic.SchematicSpawned += SpawningSchematic;
+
+        ProjectMER.Events.Handlers.Schematic.SchematicSpawned += SpawningSchematic;
 
         new Site12Menu().Activate();
-        
+
         ListResourceNames();
         InvokeOnEnabledAttributes();
     }

@@ -30,10 +30,10 @@ public class Config : IConfig
     "Research"
     ];
 
-    [Description("Scom Word Blacklist")] 
+    [Description("Scom Word Blacklist")]
     public List<string> BlackList { get; set; } = [];
 
-    [Description("Whether or not the WeightSystem should be enabled/disabled or not.")] 
+    [Description("Whether or not the WeightSystem should be enabled/disabled or not.")]
     public bool WeightSystem { get; set; } = false;
 
     [Description("Discord Webhook link for Department Logs")]

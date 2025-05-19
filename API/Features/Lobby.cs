@@ -16,16 +16,15 @@ using Exiled.Events.EventArgs.Player;
 using Exiled.Permissions.Extensions;
 using Extensions;
 using Items;
-using MapEditorReborn.API.Features;
-using MapEditorReborn.API.Features.Objects;
-using MapEditorReborn.API.Features.Serializable;
 using MEC;
 using Other;
 using PlayerRoles;
+using ProjectMER.Features;
+using ProjectMER.Features.Objects;
+using ProjectMER.Features.ToolGun;
 using UnityEngine;
 using Broadcast = Broadcast;
 using Random = System.Random;
-using Round = PluginAPI.Core.Round;
 using TeslaGate = Other.TeslaGate;
 
 public abstract class Lobby
@@ -71,7 +70,7 @@ public abstract class Lobby
     public static void Action(ExPlayer player)
     {
         if (!IsLobby) return;
-        
+
         player.Role.Set(RoleTypeId.Tutorial, SpawnReason.None, RoleSpawnFlags.All);
         Timing.CallDelayed(Timing.WaitForOneFrame, () => player.Position = SpawnPosition);
         Timing.CallDelayed(0.2f, () => player.ShowHint("<b>Welcome to the lobby!</b>\n<b>Pick a role in the Server-Specific tab in your Settings!</b>",10f));
@@ -99,9 +98,9 @@ public class UseLobbyCommand : ICommand
             return false;
 
         exUser.Broadcast(5, "REMEMBER TO USE \"BEGINROLEPLAY\"", Broadcast.BroadcastFlags.AdminChat);
-        
+
         if(!Plugin.Singleton.Config.LobbySchematic.IsEmpty())
-            Lobby.Schematic = ObjectSpawner.SpawnSchematic(new SchematicSerializable(Plugin.Singleton.Config.LobbySchematic));
+            Lobby.Schematic = ObjectSpawner.SpawnSchematic(Plugin.Singleton.Config.LobbySchematic, Vector3.zero, Vector3.zero);
 
         Round.Start();
         Round.IsLocked = true;
@@ -148,7 +147,7 @@ public class ReuseLobbyCommand : ICommand
             return false;
 
         if(!Plugin.Singleton.Config.LobbySchematic.IsEmpty())
-            Lobby.Schematic = ObjectSpawner.SpawnSchematic(new SchematicSerializable(Plugin.Singleton.Config.LobbySchematic));
+            Lobby.Schematic = ObjectSpawner.SpawnSchematic(Plugin.Singleton.Config.LobbySchematic, Vector3.zero, Vector3.zero);
 
         Lobby.IsLobby = true;
 
@@ -181,8 +180,11 @@ public class StopLobbyCommand : ICommand
         if (!Lobby.IsLobby)
             return false;
 
-        if(Lobby.Schematic)
-            Lobby.Schematic.Destroy();
+        if (Lobby.Schematic)
+        {
+            var a = Lobby.Schematic.GetComponent<MapEditorObject>();
+            ToolGunHandler.DeleteObject(a);
+        }
 
         Lobby.IsLobby = false;
 
