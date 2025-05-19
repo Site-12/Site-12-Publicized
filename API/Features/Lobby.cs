@@ -36,7 +36,7 @@ public abstract class Lobby
     public static SchematicObject Schematic;
 
     public static Vector3 SpawnPosition = Plugin.Singleton.Config.LobbySpawnLocation;
-    public static string Site = "";
+    public static string Site = "22";
 
     [OnPluginEnabled]
     public static void InitEvents()
@@ -87,7 +87,8 @@ public class UseLobbyCommand : ICommand
 
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
-        Lobby.Site = new Random().Next(10, 99).ToString();
+        if(Lobby.Site.IsEmpty())
+            Lobby.Site = new Random().Next(10, 99).ToString();
         var exUser = ExPlayer.Get(sender);
         response = "<color=red>No Permission.";
         if (!sender.CheckPermission("scombat.lobby"))

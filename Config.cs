@@ -16,20 +16,20 @@ public class Config : IConfig
     public bool Debug { get; set; } = false;
 
     [Description("Player Lobby Platform Spawn Location *Not the Schematic Spawning*")]
-    public Vector3 LobbySpawnLocation { get; set; } = new Vector3(0,0,0);
-    
+    public Vector3 LobbySpawnLocation { get; set; } = new(0,0,0);
+
     [Description("Lobby Schematic Name")]
     public string LobbySchematic { get; set; } = "exampleSchematic";
 
     [Description("Location while spawning whenever the user picks their role while lobby is enabled, other than Class-D")]
-    public Vector3 PlayerSpawnLocation { get; set; } = new Vector3(0,0,0);
-    
+    public Vector3 PlayerSpawnLocation { get; set; } = new(0,0,0);
+
     [Description("List of Departments that exist")]
     public List<string> Departments { get; set; } = [
     "Security",
     "Research"
     ];
-    
+
     [Description("Scom Word Blacklist")] 
     public List<string> BlackList { get; set; } = [];
 

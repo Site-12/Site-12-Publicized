@@ -55,7 +55,6 @@ public class Site12Menu
 
         _pages = [new SettingsPage("Lobby", lobbyMenuPage.ToArray())];
 
-
         string[] dropdownPageOptions = new string[_pages.Length];
 
         for (int i = 0; i < dropdownPageOptions.Length; i++)
@@ -127,6 +126,7 @@ public class Site12Menu
                     }
                 }
 
+                Log.Error(role.RoleName + " " + role.Department);
                 if (role.RoleName == "ClassD")
                 {
                     if (!player.SetRole(role.RoleName, role.Department, RoleSpawnFlags.All)) break;

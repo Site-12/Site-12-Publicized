@@ -15,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.4.0" />
+        <PackageReference Include="ExMod.Exiled" Version="9.6.0" />
         <PackageReference Include="Mono.HttpUtility" Version="1.0.0.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="BigHelp.Http" Version="0.3.2" />

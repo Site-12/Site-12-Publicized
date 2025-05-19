@@ -8,7 +8,6 @@ using Exiled.API.Enums;
 using Exiled.Events.EventArgs.Player;
 using Extensions;
 using InventorySystem.Items;
-using PluginAPI.Core;
 using UnityEngine;
 
 public sealed class ShivHandler : CustomItemHandler

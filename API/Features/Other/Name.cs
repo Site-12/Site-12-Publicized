@@ -98,7 +98,7 @@ public abstract class Name
         "Emerson", "Azul", "Princess", "Giada", "Lydia", "Amy", "Eden", "Joslyn", "Delilah", "Kaliyah", "Reagan",
         "Khloe", "Gianna", "Giselle", "Casey", "Reese", "Lillian", "Shirley", "Charlize", "Jaylin", "Kiana", "Aurora",
         "Heaven", "Aubree", "Addison", "Alexus", "Gabrielle", "Abigail", "Vivian", "Sierra", "Anabel", "Ireland",
-        "Kaila", "Mariana", "Nicole", "Sidney", "Carolyn", "Barbara", "Isis", "Julie", "Bryanna", "Kyleigh", "Mylie",
+        "Kaila", "Mariana", "Nicole", "Sidney", "Carolyn", "Barbara", "Julie", "Bryanna", "Kyleigh", "Mylie",
         "Miranda", "Evangeline", "Mira", "Nathalie", "Ariana", "Leticia", "Mia", "Jazmin", "Lia", "Dylan", "Harmony",
         "Eve", "Lorelai", "Leanna", "Gabriella", "Rayne", "Grace", "Ashly", "Savanna", "Paloma", "Bailey", "Kimora",
         "Rayna", "Cora", "Sophie", "Luna", "Liberty", "Gia", "Ada", "Juliana", "Dalia", "Myah", "Jayla", "Bethany",
@@ -210,7 +210,7 @@ public abstract class Name
         "Stevenson", "Gallagher", "Mcmillan", "Acevedo", "Weaver", "Reeves", "Farrell", "Mcmahon", "Mahoney", "Mckay",
         "Hendrix", "Dickerson", "Quinn", "Chaney", "Wallace", "Terrell", "Hawkins", "Juarez", "Owen", "Sanford",
         "Dillon", "Mays", "Rivera", "Lang", "Ali", "Edwards", "Gomez", "Hansen", "Hines", "Brandt", "Zuniga", "Ward",
-        "Hickman", "Bernard", "Aribus"
+        "Hickman", "Bernard"
     ];
 
     [OnPluginEnabled]

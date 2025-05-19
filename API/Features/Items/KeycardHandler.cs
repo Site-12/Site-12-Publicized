@@ -210,7 +210,7 @@ public sealed class KeycardHandler : CustomItemHandler
                     return;
                 ev.IsAllowed = true;
                 break;
-            case LockerType.Unknow:
+            case LockerType.Unknown:
                 if (ev.InteractingChamber.RequiredPermissions == KeycardPermissions.None)
                     return;
                 ev.IsAllowed = false;
