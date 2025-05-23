@@ -9,6 +9,7 @@ public class Config : IConfig
 {
     [Description("Set to true to enable the plugin once you setup all the configurations")]
     public bool ConfigurationComplete { get; set; } = false;
+
     [Description("Whether or not the plugin is enabled.")]
     public bool IsEnabled { get; set; } = true;
 

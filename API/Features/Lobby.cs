@@ -115,7 +115,7 @@ public class UseLobbyCommand : ICommand
         TeslaGate.IsEnabled = false;
         SpawnWaves.IsEnabled = false;
 
-        Door.LockAll(999999, DoorLockType.AdminCommand);
+        // Door.LockAll(999999, DoorLockType.AdminCommand);
 
         foreach (var player in ExPlayer.List) Lobby.Action(player);
 

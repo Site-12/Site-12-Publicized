@@ -35,6 +35,7 @@ public class Site12Menu
     public void Activate()
     {
         ServerSpecificSettingsSync.ServerOnSettingValueReceived += ServerOnSettingValueReceived;
+        ServerSpecificSettingsSync.ServerOnStatusReceived += ServerSpecificSettingsSyncOnServerOnStatusReceived;
         ReferenceHub.OnPlayerRemoved += OnPlayerDisconnected;
 
         _lastSentPages = new Dictionary<ReferenceHub, int>();
@@ -77,10 +78,55 @@ public class Site12Menu
         ServerSpecificSettingsSync.SendToAll();
     }
 
-    public void Deactivate()
+    private HashSet<ReferenceHub> _activated = [];
+    private void ServerSpecificSettingsSyncOnServerOnStatusReceived(ReferenceHub hub, SSSUserStatusReport status)
     {
-        ServerSpecificSettingsSync.ServerOnSettingValueReceived -= ServerOnSettingValueReceived;
-        ReferenceHub.OnPlayerRemoved -= OnPlayerDisconnected;
+        if (!status.TabOpen)
+            return;
+        if (!_activated.Add(hub))
+        {
+            _activated.Remove(hub);
+            return;
+        }
+
+        List<ServerSpecificSettingBase> allSettings = [.._pinnedSection];
+        _pages.ForEach(page => allSettings.AddRange(page.OwnEntries));
+
+        if (_pages[0].Name == "Lobby") // just to be safe
+        {
+            var count = allSettings.Count;
+            List<ServerSpecificSettingBase> lobbyMenuPage = [];
+            var index = 0;
+            foreach (var department in Department.DepartmentsData)
+            {
+                lobbyMenuPage.Add(new SSGroupHeader(department.Key));
+                foreach (var role in department.Value.Roles.Where(role => department.Key != "Other" || role.RoleName == "ClassD"))
+                {
+                    lobbyMenuPage.Add(new SSButton(index, role.RoleName, "Select Role...", 0.5f, role.Role.Description));
+                    if(!RolesToId.ContainsKey(index))
+                        RolesToId.Add(index, new Role(department.Key, role.RoleName));
+                    index++;
+                }
+            }
+
+            _pages[0].OwnEntries = lobbyMenuPage.ToArray();
+            _pages[0].GenerateCombinedEntries(_pinnedSection);
+            List<ServerSpecificSettingBase> newSettings = [.._pinnedSection];
+            _pages.ForEach(page => newSettings.AddRange(page.OwnEntries));
+            if (count > newSettings.Count || count < newSettings.Count)
+            {
+                ServerSpecificSettingsSync.DefinedSettings = newSettings.ToArray();
+                ServerSpecificSettingsSync.SendToAll();
+                return;
+            }
+        }
+
+        if (ServerSpecificSettingsSync.DefinedSettings == allSettings.ToArray())
+            return;
+
+        ServerSpecificSettingsSync.DefinedSettings = allSettings.ToArray();
+
+        ServerSendSettingsPage(hub, _lastSentPages[hub], true);
     }
 
     private void ServerOnSettingValueReceived(ReferenceHub hub, ServerSpecificSettingBase setting)
@@ -88,7 +134,7 @@ public class Site12Menu
         switch (setting)
         {
             case SSDropdownSetting dropdown when dropdown.SettingId == _pageSelectorDropdown.SettingId:
-                ServerSendSettingsPage(hub, dropdown.SyncSelectionIndexValidated);
+                ServerSendSettingsPage(hub, dropdown.SyncSelectionIndexValidated, false);
                 break;
             case SSButton potentialRole when RolesToId.TryGetValue(potentialRole.SettingId, out var role):
             {
@@ -145,34 +191,14 @@ public class Site12Menu
         }
     }
 
-    private void ServerSendSettingsPage(ReferenceHub hub, int settingIndex)
+    private void ServerSendSettingsPage(ReferenceHub hub, int settingIndex, bool bypass)
     {
         // Client automatically re-sends values of all the field after reception of the settings collection.
         // This can result in triggering this event, so we want to save the previously sent value to avoid going into infinite loops.
-        if (_lastSentPages.TryGetValue(hub, out int prevSent) && prevSent == settingIndex)
+        if (_lastSentPages.TryGetValue(hub, out int prevSent) && prevSent == settingIndex && !bypass)
             return;
 
         _lastSentPages[hub] = settingIndex;
-        if (_pages[settingIndex].Name == "Lobby")
-        {
-            List<ServerSpecificSettingBase> lobbyMenuPage = [];
-            var index = 0;
-            foreach (var department in Department.DepartmentsData)
-            {
-                lobbyMenuPage.Add(new SSGroupHeader(department.Key));
-                foreach (var role in department.Value.Roles.Where(role => department.Key != "Other" || role.RoleName == "ClassD"))
-                {
-                    lobbyMenuPage.Add(new SSButton(index, role.RoleName, "Select Role...", 0.5f, role.Role.Description));
-                    if(!RolesToId.ContainsKey(index))
-                        RolesToId.Add(index, new Role(department.Key, role.RoleName));
-                    index++;
-                }
-            }
-
-            _pages[settingIndex].OwnEntries = lobbyMenuPage.ToArray();
-            _pages[settingIndex].GenerateCombinedEntries(_pinnedSection);
-        }
-
         ServerSpecificSettingsSync.SendToPlayer(hub, _pages[settingIndex].CombinedEntries);
     }
 
