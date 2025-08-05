@@ -15,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ExMod.Exiled" Version="9.6.0" />
+        <PackageReference Include="ExMod.Exiled" Version="9.7.1" />
         <PackageReference Include="Mono.HttpUtility" Version="1.0.0.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="BigHelp.Http" Version="0.3.2" />
@@ -26,6 +26,8 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        
+        <PackageReference Include="Northwood.LabAPI" Version="1.1.1" />
         
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
     </ItemGroup>
